@@ -4,7 +4,8 @@ import styles from '../styles/Home.module.css'
 
 
 export const getServerSideProps = async () => {
-  const res = await fetch('http://localhost:3000/api/random/')
+	console.log(process.env.BASE_URL)
+  const res = await fetch(`${process.env.BASE_URL}/api/random/`)
   const data = await res.json();
   return {
     props: {

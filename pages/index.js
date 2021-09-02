@@ -4,18 +4,19 @@ import styles from '../styles/Home.module.css'
 
 
 export const getServerSideProps = async () => {
-	console.log(process.env.BASE_URL)
-  const res = await fetch(`${process.env.BASE_URL}/api/random/`)
-  const data = await res.json();
+  // const res = await fetch(`${process.env.BASE_URL}/api/random/`)
+  const res = await fetch('https://quotes-api.tickertape.in/quotes?sids=SBI')
+  const { data } = await res.json();
+  console.log(data);
   return {
     props: {
-		data: data,
+		data: data[0],
     },
   }
 }
 
 export default function Home(props) {
-	const {symbol, pChange, lastPrice } = props.data;
+	const { sid, price, change } = props.data;
   return (
     <div className={styles.container}>
       <Head>
@@ -36,9 +37,9 @@ export default function Home(props) {
 
         <div className={styles.grid}>
 		  <div>
-			  <h2>{symbol}</h2>
-			  <p>{pChange}</p>
-			  <p>{lastPrice}</p>
+			  <h2>{sid}</h2>
+			  <p>{price}</p>
+			  <p>{change}</p>
 		  </div>
         </div>
       </main>
